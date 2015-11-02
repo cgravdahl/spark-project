@@ -17,11 +17,11 @@ class CreateUser implements DomainInterface
 	public function __invoke(array $input)
 	{
 		$user = [
-			'name' 		=> $input['name'],
-			'role' 		=> $input['role'],
-			'email' 	=> $input['email'],
-			'phone' 	=> $input['phone'],
-			'created_at'=> $input[NOW()],
+			'name' 			=> $input['name'],
+			'role' 			=> $input['role'],
+			'email' 		=> $input['email'],
+			'phone' 		=> $input['phone'],
+			'created_at'	=> $input[NOW()],
 		]
 
 		$new_user = $this->fpdo->insertInto('user',$user)->execute();

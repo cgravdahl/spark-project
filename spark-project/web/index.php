@@ -18,10 +18,10 @@ $app->setMiddleware([
 ]);
 
 $app->addRoutes(function (Spark\Router $r) {
-    $r->get('/hello[/{name}]', 'Spark\Project\Domain\Hello');
     $r->get('/user/{name}','Spark\Project\Domain\GetUser');
-    $r->post('/hello[/{name}]', 'Spark\Project\Domain\Hello');
+    $r->get('/schedule/{id}','Spark\Project\Domain\GetSchedule');
     $r->post('/user', 'Spark\Project\Domain\CreateUser');
 });
 
 $app->run();
+?>

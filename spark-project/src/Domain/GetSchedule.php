@@ -5,9 +5,9 @@ namespace Spark\Project\Domain;
 use Spark\Adr\DomainInterface;
 use Spark\Payload;
 
-class GetUser implements DomainInterface
+class GetSchedule implements DomainInterface
 {
-	protected $fpdo;
+	protected $fpdo; 
 
 	public function __construct(\FluentPDO $fluentpdo)
 	{
@@ -16,24 +16,24 @@ class GetUser implements DomainInterface
 
 	public function __invoke(array $input)
 	{
-		if(empty($input['name'])){
+		if(empty($input['id'])){
 			return (new Payload)
 				->withStatus(Payload::ERROR)
 				->withOutput([
-					'error' => 'Missing name argument',
-				]);
+						'error' => 'Missing id argument',
+					]);
 		}
 
-		$name = $input['name'];
-		$users = $this->fpdo->from('user')
-				->where('name', $name);
+		$id = $input['id'];
+		$shifts = $this->fpdo->from('shift')
+					->where('employee_id', $id);
 
 		$output = [];
-		foreach($users as $user){
-			$output = $user;
+		foreach($shifts as $shift){
+			$output[] = $shift;
 		}
 		return(new Payload)
 			->withStatus(Payload::OK)
-			->withOutput($output);
+			->withOutput($output); 
 	}
 }
